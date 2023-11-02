@@ -9,6 +9,7 @@ from models import models, schemas
 from database import engine, load_data_to_db
 from dependencies import get_db
 from base64 import b64encode
+from typing import List
 
 
 
@@ -18,6 +19,7 @@ app = FastAPI()
 
 
 origins = [
+    "https://beerlens.netlify.app",
     "http://localhost:3000",
 ]
 
@@ -35,7 +37,7 @@ async def startup_event():
 
 
 
-@app.get("/beers/", response_model=list[schemas.BeerInfo])
+@app.get("/beers/", response_model=List[schemas.BeerInfo])
 async def read_beers(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     beers = crud.get_all_beers(db)
     return beers
