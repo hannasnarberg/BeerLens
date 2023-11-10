@@ -10,8 +10,8 @@ import './styles/Details.css';
 import SimilarBeers from './SimilarBeers';
 
 const Details = () => {
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
-
+  const BACKEND_URL =
+    process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
   const { beer_id } = useParams();
   const [beerInfo, setBeer] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -22,11 +22,15 @@ const Details = () => {
       setLoading(true);
 
       try {
-        const beerResponse = await fetch(`${BACKEND_URL}/beers/${beer_id}/info`);
+        const beerResponse = await fetch(
+          `${BACKEND_URL}/beers/${beer_id}/info`
+        );
         const beerData = await beerResponse.json();
         setBeer(beerData);
 
-        const reviewsResponse = await fetch(`${BACKEND_URL}/beers/${beer_id}/reviews`);
+        const reviewsResponse = await fetch(
+          `${BACKEND_URL}/beers/${beer_id}/reviews`
+        );
         const reviewsData = await reviewsResponse.json();
         setReviews(reviewsData);
       } catch (error) {
@@ -46,26 +50,24 @@ const Details = () => {
       </div>
     );
   }
-  
+
   const combinedBeerObject = {
     ...beerInfo,
     ...reviews,
-    reviews: [...(beerInfo.reviews || []), ...(reviews.reviews || [])]
+    reviews: [...(beerInfo.reviews || []), ...(reviews.reviews || [])],
   };
-
-  
 
   return (
     <div className='detailsContainer'>
       <DetailsOverview beerData={combinedBeerObject} />
       <NavBar />
-      <TasteDescription beerData={combinedBeerObject}/>
+      <TasteDescription beerData={combinedBeerObject} />
       <span className='detailsLine' />
-      <Pairings beerData={combinedBeerObject}/>
+      <Pairings beerData={combinedBeerObject} />
       <span className='detailsLine' />
-      <About beerData={combinedBeerObject}/>
+      <About beerData={combinedBeerObject} />
       <span className='detailsLine' />
-      <Reviews beerData={combinedBeerObject}/>
+      <Reviews beerData={combinedBeerObject} />
       <span className='detailsLine' />
       <SimilarBeers />
     </div>
