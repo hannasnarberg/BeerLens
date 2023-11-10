@@ -23,14 +23,16 @@ function Header() {
   return (
     <div className='header-container'>
       <div className='left-section'>
+        <button className='Header-Button' onClick={redirectToHome}>
         <img className='logo' src={logo} alt='logo' />
-
-        <h1 className='Beer-Name'>Beer Lens</h1>
+        </button>
+        <button className='Beer-Name' onClick={redirectToHome}>Beer Lens</button>
         <div className='search-wrapper'>
           <input
             type='search'
             placeholder='Search any beer'
             className='search-bar'
+            disabled={true}
           />
           <img className='search-pic' src={searchIcon} />
         </div>
